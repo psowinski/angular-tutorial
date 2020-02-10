@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { DokiListComponent } from './doki-list/doki-list.component';
+import { DokiThumbinalComponent } from './doki-thumbinal/doki-thumbinal.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DokiListComponent,
+    DokiThumbinalComponent
   ],
   imports: [
     BrowserModule,
