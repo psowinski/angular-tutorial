@@ -1,1 +1,11 @@
-<p>doki-thumbinal works!</p>
+<div class="thumb">
+    <img class="thumb-img" src="{{data.image}}"/>
+    <div class="details">
+    <h4>{{ data.name }} ({{data.category}})</h4>
+    <div class="mat-caption">
+        <div>Cena: {{data.price / 100.0 | number:'0.2-2'}}</div>
+        <div>Ilość: {{data.elements}}</div>
+        <div>Cena za element: {{data.price / 100.0 / data.elements | number:'0.2-2'}}</div>
+    </div>
+    </div>
+</div>

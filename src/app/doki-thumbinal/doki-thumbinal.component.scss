@@ -1,0 +1,19 @@
+.thumb {
+    float: left;
+    background-color: lightgray;
+    margin: 5px;
+    min-width: 400px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.thumb-img {
+    float: left;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.details {
+    overflow: auto;
+    padding: 5px;
+}

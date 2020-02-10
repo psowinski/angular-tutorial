@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DokiSet } from './../contracts/doki.contract';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-doki-thumbinal',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doki-thumbinal.component.scss']
 })
 export class DokiThumbinalComponent implements OnInit {
+
+  @Input() data: DokiSet;
+
+  licz: number = 3.112;
 
   constructor() { }
 
