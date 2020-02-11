@@ -1,11 +1,14 @@
 <div class="thumb">
-    <img class="thumb-img" src="{{data.image}}"/>
-    <div class="details">
-    <h4>{{ data.name }} ({{data.category}})</h4>
-    <div class="mat-caption">
-        <div>Cena: {{data.price / 100.0 | number:'0.2-2'}}</div>
-        <div>Ilość: {{data.elements}}</div>
-        <div>Cena za element: {{data.price / 100.0 / data.elements | number:'0.2-2'}}</div>
+    <div class="thumb-symbol">
+        <img class="thumb-img" src="{{data.image}}"/>
+        <div>{{data.symbol}}</div>
     </div>
+    <div class="details">
+        <h3 style="margin: 0px">{{ data.name }}</h3>
+        <span class="mat-caption">({{data.category}})</span>
+        <div class="price">
+            <div><b>{{data.price / 100.0 | number:'0.2-2'}}</b> zł za <b>{{data.elements}}</b> szt.</div>
+            <div>Cena elementu: <b>{{data.price / 100.0 / data.elements | number:'0.2-2'}}</b></div>
+        </div>
     </div>
 </div>

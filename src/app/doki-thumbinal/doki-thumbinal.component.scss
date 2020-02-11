@@ -1,19 +1,28 @@
 .thumb {
     float: left;
-    background-color: lightgray;
     margin: 5px;
     min-width: 400px;
+    max-width: 400px;
     padding: 10px;
     cursor: pointer;
+    border: 1px solid grey;
 }
 
 .thumb-img {
     float: left;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .details {
     overflow: auto;
-    padding: 5px;
+}
+
+.thumb-symbol {
+    float: left;
+    text-align: center;
+}
+
+.price {
+    margin-block-start: 1em;
 }
