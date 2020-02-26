@@ -1,0 +1,5 @@
+$doki-app-primary: mat-palette($mat-indigo);
+$doki-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$doki-app-warn:    mat-palette($mat-red);
+
+$doki-app-theme: mat-light-theme($doki-app-primary, $doki-app-accent, $doki-app-warn);
