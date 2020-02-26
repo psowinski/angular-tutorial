@@ -9,7 +9,7 @@ export class DokiDataService {
 
   httpClient: HttpClient;
 
-  constructor(httpClient: HttpClient) { 
+  constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
 
@@ -18,24 +18,24 @@ export class DokiDataService {
     this.httpClient.get('https://zklockow.pl/lego-creator', {responseType: 'text'})
     .subscribe(data => {
 
-      let parser = new DOMParser();
-      let parsedHtml = parser.parseFromString(data, 'text/html');
-      let items = parsedHtml.getElementsByClassName("prod_h");
-      
+      const parser = new DOMParser();
+      const parsedHtml = parser.parseFromString(data, 'text/html');
+      const items = Array.from(parsedHtml.getElementsByClassName('prod_h'));
+
       console.log('Pobrano elementów: ' + items.length);
 
-      let sets: DokiSet[] = [];
-      for (let i = 0; i < items.length; i++) {
-        sets.push(this.parseDokiSets(items[i]));
+      const sets: DokiSet[] = [];
+      for (const item of items) {
+        sets.push(this.parseDokiSets(item));
       }
       callback(sets);
     }));
   }
 
-  parseDokiSets(item: Element) : DokiSet {
+  parseDokiSets(item: Element): DokiSet {
 
-    let parts = item.getElementsByClassName("pn")[0].textContent.split(' ');
-    let symbolPosition = this.getSymbolPosition(parts);
+    const parts = item.getElementsByClassName('pn')[0].textContent.split(' ');
+    const symbolPosition = this.getSymbolPosition(parts);
 
     return {
       name: this.getName(parts, symbolPosition),
@@ -49,13 +49,14 @@ export class DokiDataService {
 
   imageUrlPrefix(url: string): string {
     let addr = 'https://zklockow.pl';
-    if(url[0] !== '/')
+    if (url[0] !== '/') {
       addr = addr + '/';
+    }
     return addr + url;
   }
 
   getElementsNumber(item: Element): number {
-    return +item.getElementsByClassName("pd")[0].children[1].textContent;
+    return +item.getElementsByClassName('pd')[0].children[1].textContent;
   }
 
   getName(parts: string[], symbolPosition: number) {
@@ -68,8 +69,8 @@ export class DokiDataService {
 
   joinParts(parts: string[], from: number, to: number) {
     let text = '';
-    for(let i = from; i < to; ++i) {
-      if(text.length > 0) {
+    for (let i = from; i < to; ++i) {
+      if (text.length > 0) {
         text = text + ' ';
       }
       text = text + parts[i];
@@ -78,25 +79,25 @@ export class DokiDataService {
   }
 
   getSymbolPosition(parts: string[]) {
-    for(let i = 1; i < parts.length; ++i) {
-      if(this.isSymbolNumber(parts[i]))
+    for (let i = 1; i < parts.length; ++i) {
+      if (this.isSymbolNumber(parts[i])) {
         return i;
+      }
     }
     return 0;
   }
 
-  isSymbolNumber(value: string): boolean
-  {
+  isSymbolNumber(value: string): boolean {
     return +value > 100;
   }
 
-  parsePrice(item: Element) : number {
-    let priceText = item.getElementsByClassName("pp")[0].textContent;
-    let price = +priceText.replace('od ', '').replace(' zł', '').replace(',', '.');
+  parsePrice(item: Element): number {
+    const priceText = item.getElementsByClassName('pp')[0].textContent;
+    const price = +priceText.replace('od ', '').replace(' zł', '').replace(',', '.');
     return price * 100;
   }
 
-  getTestData() : DokiSet[] {
+  getTestData(): DokiSet[] {
 
     return [
       {
@@ -130,7 +131,7 @@ export class DokiDataService {
         price: 8800,
         elements: 456,
         image: 'https://zklockow.pl/img/1600/lego-city-60258-warsztat-tuningowy-1.jpg'
-      }      
+      }
     ];
   }
 }

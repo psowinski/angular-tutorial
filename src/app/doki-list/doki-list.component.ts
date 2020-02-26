@@ -15,10 +15,10 @@ export class DokiListComponent implements OnInit {
   constructor(private dokiDataService: DokiDataService) {
   }
 
-  sets: DokiSet[]
+  sets: DokiSet[];
 
   ngOnInit() {
-    this.dokiDataService.getDokiSetsWeb(data => {this.sets = data;});
+    this.dokiDataService.getDokiSetsWeb(data => { this.sets = data; });
     // let interval = setInterval(() => {
     //   this.onDataRecive(this.dokiDataService.getDokiSets());
     //   clearInterval(interval);

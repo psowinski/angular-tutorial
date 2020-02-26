@@ -10,7 +10,7 @@ export class DokiThumbinalComponent implements OnInit {
 
   @Input() data: DokiSet;
 
-  licz: number = 3.112;
+  licz = 3.112;
 
   constructor() { }
 
