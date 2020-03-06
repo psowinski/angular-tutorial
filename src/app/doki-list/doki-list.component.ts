@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <h1>Lista zestawow</h1>
     <app-doki-thumbinal *ngFor="let set of sets" [data]="set"></app-doki-thumbinal>
-  `,
-  styleUrls: ['./doki-list.component.scss']
+  `
 })
 export class DokiListComponent implements OnInit {
 

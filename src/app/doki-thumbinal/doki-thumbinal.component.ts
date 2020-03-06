@@ -10,8 +10,6 @@ export class DokiThumbinalComponent implements OnInit {
 
   @Input() data: DokiSet;
 
-  licz = 3.112;
-
   constructor() { }
 
   ngOnInit() {

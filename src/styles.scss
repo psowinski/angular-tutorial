@@ -5,10 +5,12 @@
 @include mat-core();
 
 @import 'themes/light.theme.scss';
+@import 'app/doki-list/doki-list.component.theme.scss';
 
 html, body { height: 100%; }
 body { 
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    @include angular-material-theme($doki-app-theme);
+   // font-family: Roboto, "Helvetica Neue", sans-serif;
  }
+ @include angular-material-theme($doki-app-theme);
+ @include doki-list-theme($doki-app-theme);

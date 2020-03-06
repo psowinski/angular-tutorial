@@ -1,0 +1,10 @@
+   
+@mixin doki-list-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, accent);
+
+    h1 {
+        background-color: mat-color($accent, A400);
+    }
+}
