@@ -9,6 +9,7 @@
         <div class="price">
             <div><b>{{data.price / 100.0 | number:'0.2-2'}}</b> zł za <b>{{data.elements}}</b> szt.</div>
             <div>Cena elementu: <b>{{data.price / 100.0 / data.elements | number:'0.2-2'}}</b></div>
+            <div *ngIf="data.price / 100.0 / data.elements < 0.30">DOBRA CENA</div>
         </div>
     </div>
 </div>
