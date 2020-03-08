@@ -3,6 +3,7 @@
     margin: 5px;
     min-width: 400px;
     max-width: 400px;
+    height: 150px;
     padding: 10px;
     cursor: pointer;
     border: 1px solid grey;
@@ -25,4 +26,9 @@
 
 .price {
     margin-block-start: 1em;
+}
+
+.good {
+    color: red;
+    font-weight: bold;
 }
