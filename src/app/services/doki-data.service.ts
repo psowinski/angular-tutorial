@@ -20,13 +20,14 @@ export class DokiDataService {
 
       const parser = new DOMParser();
       const parsedHtml = parser.parseFromString(data, 'text/html');
-      const items = Array.from(parsedHtml.getElementsByClassName('prod_h'));
+      const items = Array.from(parsedHtml.getElementsByClassName('Pr'));
 
       console.log('Pobrano elementów: ' + items.length);
 
       const sets: DokiSet[] = [];
       for (const item of items) {
-        sets.push(this.parseDokiSets(item));
+        if(item.tagName == "DIV")
+          sets.push(this.parseDokiSets(item));
       }
       callback(sets);
     }));
@@ -34,7 +35,7 @@ export class DokiDataService {
 
   parseDokiSets(item: Element): DokiSet {
 
-    const parts = item.getElementsByClassName('pn')[0].textContent.split(' ');
+    const parts = item.getElementsByClassName('Na')[0].textContent.split(' ');
     const symbolPosition = this.getSymbolPosition(parts);
 
     return {
@@ -56,7 +57,7 @@ export class DokiDataService {
   }
 
   getElementsNumber(item: Element): number {
-    return +item.getElementsByClassName('pd')[0].children[1].textContent;
+    return +item.getElementsByClassName('pd')[0].children[3].textContent;
   }
 
   getName(parts: string[], symbolPosition: number) {

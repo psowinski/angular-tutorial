@@ -17,10 +17,6 @@ export class DokiListComponent implements OnInit {
 
   ngOnInit() {
     this.dokiDataService.getDokiSetsWeb(data => { this.sets = data; });
-    // let interval = setInterval(() => {
-    //   this.onDataRecive(this.dokiDataService.getDokiSets());
-    //   clearInterval(interval);
-    // }, 2000);
   }
 
   onDataRecive(data: DokiSet[]) {

@@ -1,10 +1,10 @@
-<div class="thumb">
+<div [routerLink]="['/dokis/', data.name]" class="thumb">
     <div class="thumb-symbol">
         <img class="thumb-img" src="{{data.image}}"/>
         <div>{{data.symbol}}</div>
     </div>
     <div class="details">
-        <h3 style="margin: 0px">{{ data.name }}</h3>
+        <h3 [class.green]="visual_element_price < 0.30" style="margin: 0px">{{ data.name }}</h3>
         <span class="mat-caption">({{data.category}})</span>
         <div class="price">
             <div><b>{{visual_price | number:'0.2-2'}}</b> zł za <b>{{data.elements}}</b> szt.</div>
