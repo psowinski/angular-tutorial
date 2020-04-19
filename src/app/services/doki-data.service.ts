@@ -2,7 +2,7 @@ import { DokiSet } from './../contracts/doki.contract';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, flatMap } from 'rxjs/operators';
+import { flatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +25,7 @@ export class DokiDataService {
 
       console.log('Pobrano elementów: ' + items.length);
 
-      const sets: DokiSet[] = [];
-      for (const item of items) {
-        if(item.tagName == "DIV")
-          sets.push(this.parseDokiSets(item));
-      }
-      return sets;
+      return items.filter(x => x.tagName === "DIV").map(x => this.parseDokiSets(x));
     }));
   }
 
@@ -70,23 +65,11 @@ export class DokiDataService {
   }
 
   joinParts(parts: string[], from: number, to: number) {
-    let text = '';
-    for (let i = from; i < to; ++i) {
-      if (text.length > 0) {
-        text = text + ' ';
-      }
-      text = text + parts[i];
-    }
-    return text;
+    return parts.slice(from, to).filter(x => x.length > 0).reduce((acc, v) => acc + ' ' + v);
   }
 
   getSymbolPosition(parts: string[]) {
-    for (let i = 1; i < parts.length; ++i) {
-      if (this.isSymbolNumber(parts[i])) {
-        return i;
-      }
-    }
-    return 0;
+    return parts.slice(1).findIndex(this.isSymbolNumber) + 1;
   }
 
   isSymbolNumber(value: string): boolean {
@@ -97,43 +80,5 @@ export class DokiDataService {
     const priceText = item.getElementsByClassName('pp')[0].textContent;
     const price = +priceText.replace('od ', '').replace(' zł', '').replace(',', '.');
     return price * 100;
-  }
-
-  getTestData(): DokiSet[] {
-
-    return [
-      {
-        name: 'Łódź',
-        symbol: '31093',
-        category: 'city',
-        price: 9300,
-        elements: 394,
-        image: 'https://zklockow.pl/img/1600/lego-city-60258-warsztat-tuningowy-1.jpg'
-      },
-      {
-        name: 'Remiza w zimowej wiosce',
-        symbol: '34433',
-        category: 'city',
-        price: 26500,
-        elements: 1109,
-        image: 'https://zklockow.pl/img/1600/lego-city-60258-warsztat-tuningowy-1.jpg'
-      },
-      {
-        name: 'Cmentarz',
-        symbol: '56012',
-        category: 'other side',
-        price: 11000,
-        elements: 382,
-        image: 'https://zklockow.pl/img/1600/lego-city-60258-warsztat-tuningowy-1.jpg'
-      },
-      {
-        name: 'Koła',
-        symbol: '9606',
-        category: 'classic',
-        price: 8800,
-        elements: 456,
-        image: 'https://zklockow.pl/img/1600/lego-city-60258-warsztat-tuningowy-1.jpg'
-      }
-    ];
   }
 }
