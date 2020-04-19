@@ -13,14 +13,9 @@ export class DokiListComponent implements OnInit {
   constructor(private dokiDataService: DokiDataService) {
   }
 
-  sets: DokiSet[];
+  sets: DokiSet[] = [];
 
   ngOnInit() {
-    this.dokiDataService.getDokiSetsWeb(data => { this.sets = data; });
+    this.dokiDataService.getDokiSetsWeb().subscribe(data => { this.sets.push(data); });
   }
-
-  onDataRecive(data: DokiSet[]) {
-    this.sets = data;
-  }
-
 }

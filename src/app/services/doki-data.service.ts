@@ -1,6 +1,8 @@
 import { DokiSet } from './../contracts/doki.contract';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,9 @@ export class DokiDataService {
     this.httpClient = httpClient;
   }
 
-   getDokiSetsWeb(callback: (data: DokiSet[]) => void) {
-    this.httpClient.get('https://zklockow.pl/lego-creator?o=9', {responseType: 'text'}).subscribe(zzz =>
-    this.httpClient.get('https://zklockow.pl/lego-creator', {responseType: 'text'})
-    .subscribe(data => {
+   getDokiSetsWeb(): Observable<DokiSet> {
+    return this.httpClient.get('https://zklockow.pl/lego-creator', {responseType: 'text'})
+    .pipe(flatMap(data => {
 
       const parser = new DOMParser();
       const parsedHtml = parser.parseFromString(data, 'text/html');
@@ -29,7 +30,7 @@ export class DokiDataService {
         if(item.tagName == "DIV")
           sets.push(this.parseDokiSets(item));
       }
-      callback(sets);
+      return sets;
     }));
   }
 
