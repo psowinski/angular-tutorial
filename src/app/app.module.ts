@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
-import { DokiListComponent } from './doki-list/doki-list.component';
-import { DokiThumbinalComponent } from './doki-thumbinal/doki-thumbinal.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { DokiDetailsComponent } from './doki-details/doki-details.component';
-import { DokiListResolver } from './services/doki-list.resolver';
+import {
+  DokiListComponent,
+  DokiThumbinalComponent,
+  DokiDetailsComponent,
+  NavbarComponent,
+  DokiListResolver
+} from './component.index'
 
 @NgModule({
   declarations: [
