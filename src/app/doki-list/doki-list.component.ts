@@ -1,6 +1,7 @@
 import { DokiSet } from './../contracts/doki.contract';
 import { DokiDataService } from './../services/doki-data.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   template: `
@@ -10,12 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DokiListComponent implements OnInit {
 
-  constructor(private dokiDataService: DokiDataService) {
+  constructor(private route: ActivatedRoute) {
   }
 
   sets: DokiSet[] = [];
 
   ngOnInit() {
-    this.dokiDataService.getDokiSetsWeb().subscribe(data => { this.sets.push(data); });
+    //direct access to service
+    //this.dokiDataService.getDokiSetsWeb().subscribe(data => { this.sets.push(data); });
+    //using resolver
+    this.sets = this.route.snapshot.data['dokidata'];
   }
 }

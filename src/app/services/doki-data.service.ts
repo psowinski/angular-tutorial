@@ -1,7 +1,7 @@
 import { DokiSet } from './../contracts/doki.contract';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
 @Injectable({
@@ -15,8 +15,15 @@ export class DokiDataService {
     this.httpClient = httpClient;
   }
 
-   getDokiSetsWeb(): Observable<DokiSet> {
-    return this.httpClient.get('https://zklockow.pl/lego-creator', {responseType: 'text'})
+  getPath(category: string) {
+    switch(category) {
+      case 'otherside': return 'https://zklockow.pl/lego-hidden-side';
+      default: return 'https://zklockow.pl/lego-creator';
+    }
+  }
+
+  getDokiSetsWeb(category?: string): Observable<DokiSet> {
+    return this.httpClient.get(this.getPath(category), {responseType: 'text'})
     .pipe(flatMap(data => {
 
       const parser = new DOMParser();
@@ -33,6 +40,7 @@ export class DokiDataService {
 
     const parts = item.getElementsByClassName('Na')[0].textContent.split(' ');
     const symbolPosition = this.getSymbolPosition(parts);
+    const img = item.getElementsByTagName('img')[0];
 
     return {
       name: this.getName(parts, symbolPosition),
@@ -40,18 +48,10 @@ export class DokiDataService {
       category: this.getCategory(parts, symbolPosition),
       price: this.parsePrice(item),
       elements: this.getElementsNumber(item),
-      image: this.imageUrlPrefix(item.getElementsByTagName('img')[0].getAttribute('src'))
+      image: img.getAttribute('data-pagespeed-lazy-src') || 'https://zklockow.pl/' + img.getAttribute('src')
     };
-  }
 
-  imageUrlPrefix(url: string): string {
-    let addr = 'https://zklockow.pl';
-    if (url[0] !== '/') {
-      addr = addr + '/';
-    }
-    return addr + url;
   }
-
   getElementsNumber(item: Element): number {
     return +item.getElementsByClassName('pd')[0].children[3].textContent;
   }
@@ -77,7 +77,9 @@ export class DokiDataService {
   }
 
   parsePrice(item: Element): number {
-    const priceText = item.getElementsByClassName('pp')[0].textContent;
+    const raw = item.getElementsByClassName('pp');
+    if(raw.length == 0) return 0;
+    const priceText = raw[0].textContent;
     const price = +priceText.replace('od ', '').replace(' zł', '').replace(',', '.');
     return price * 100;
   }

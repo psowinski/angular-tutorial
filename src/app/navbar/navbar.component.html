@@ -1,4 +1,8 @@
 <div class="menu">
-    <div class="item" [routerLink]="['/dokis']">Lista zestawow creator</div>
-    <div class="item" [routerLink]="['/dokis']">Lista zestawow other side</div>
+    <div class="item" [routerLink]="['/dokis']" 
+        routerLinkActive="router-link-active-style" 
+        [routerLinkActiveOptions]="{exact:true}">Lista zestawow creator</div>
+    <div class="item" [routerLink]="['/dokiscategory/otherside']"
+        routerLinkActive="router-link-active-style" 
+        [routerLinkActiveOptions]="{exact:true}">Lista zestawow other side</div>
 </div>
